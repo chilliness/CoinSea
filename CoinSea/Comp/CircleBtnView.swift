@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CircleBtnView: View {
-    @State var scale: CGFloat = 0.8
+    @State var isAnim: Bool = false
     
     var iconName: String
     
@@ -21,13 +21,13 @@ struct CircleBtnView: View {
                 ZStack {
                     Circle()
                         .stroke(.black.opacity(0.5), lineWidth: 1)
-                        .scaleEffect(scale)
+                        .scaleEffect(isAnim ? 1.2 : 0.8)
                         .isPresented(iconName == "plus")
                         .task {
                             withAnimation(.linear(duration: 0.6).repeatCount(3, autoreverses: false)) {
-                                scale = 1.2
+                                isAnim = true
                             } completion: {
-                                scale = 0.8
+                                isAnim = false
                             }
                         }
                     
