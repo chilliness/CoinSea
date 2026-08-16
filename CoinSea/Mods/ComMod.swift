@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=24h
 
@@ -158,4 +159,18 @@ struct StatModel: Identifiable {
     var title: String
     var value: String
     var percent: Double?
+}
+
+enum Themes: String, CaseIterable, Identifiable {
+    case light = "浅色模式"
+    case dark = "深色模式"
+    
+    var id: String { self.rawValue }
+    
+    var colorScheme: ColorScheme {
+        switch self {
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
 }

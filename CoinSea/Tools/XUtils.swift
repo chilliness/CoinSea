@@ -9,16 +9,6 @@ import SwiftUI
 import AVKit
 import UserNotifications
 
-// 工具函数
-class XUtils {
-    static func handleGeo(geo: GeometryProxy, coef: Double = 20) -> Double {
-        let maxW = geo.frame(in: .global).width / 2
-        let curr = geo.frame(in: .global).midX
-        
-        return Double(1 - (curr / maxW)) * coef
-    }
-}
-
 // 振动管理
 class XHaptic {
     static let shared = XHaptic()
@@ -97,58 +87,6 @@ actor XFile {
         guard let url = handleGetFolderUrl(folderName: folderName) else { return nil }
         
         return url.appending(path: imgName + ".png")
-    }
-}
-
-struct XCorner: Shape {
-    var size: CGSize
-    var conrner: UIRectCorner
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: conrner, cornerRadii: size)
-        
-        return Path(path.cgPath)
-    }
-}
-
-struct XTriang: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-            path.closeSubpath()
-        }
-    }
-}
-
-struct XModiText: ViewModifier {
-    var bgc: Color = .blue
-    
-    func body(content: Content) -> some View {
-        content
-            .font(.headline)
-            .foregroundStyle(.white)
-            .frame(height: 55)
-            .frame(maxWidth: .infinity)
-            .background(bgc)
-            .isRounded(10)
-            .shadow(radius: 10)
-            .padding()
-    }
-}
-
-struct XModiTrans: ViewModifier {
-    var ang: Double = 45
-    
-    func body(content: Content) -> some View {
-        content
-            .rotationEffect(.degrees(ang))
-            .visualEffect { ctx, geo in
-                let flag = ang != 0
-                
-                return ctx.offset(x: flag ? geo.size.width : 0, y: flag ? geo.size.height : 0)
-            }
     }
 }
 
