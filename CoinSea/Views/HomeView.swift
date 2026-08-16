@@ -10,6 +10,7 @@ import SwiftData
 
 struct HomeView: View {
     @Environment(HomeViewModel.self) var vm
+    @AppStorage("themes") var themes: Themes = .dark
     @Query(sort: \PortfolioModel.id) var portfolioList: [PortfolioModel]
     
     @State var showPort: Bool = false
@@ -51,6 +52,13 @@ struct HomeView: View {
                 
                 Spacer(minLength: 0)
             }
+        }
+        .overlay(alignment: .bottomTrailing) {
+            CircleBtnView(iconName: themes == .dark ? "moon.fill" : "sun.min.fill")
+                .offset(x: -16)
+                .onTapGesture {
+                    themes = themes == .dark ? .light : .dark
+                }
         }
         .onChange(of: portfolioList, initial: true) { _, newValue in
             vm.portfolioModel = newValue

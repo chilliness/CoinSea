@@ -20,7 +20,7 @@ struct CircleBtnView: View {
             .background {
                 ZStack {
                     Circle()
-                        .stroke(.black.opacity(0.5), lineWidth: 1)
+                        .stroke(.primary.opacity(0.5), lineWidth: 2)
                         .scaleEffect(isAnim ? 1.2 : 0.8)
                         .isPresented(iconName == "plus")
                         .task {
