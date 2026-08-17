@@ -54,7 +54,7 @@ struct HomeView: View {
             }
         }
         .overlay(alignment: .bottomTrailing) {
-            CircleBtnView(iconName: themes == .dark ? "moon.fill" : "sun.min.fill")
+            CircleBtnView(iconName: themes == .dark ? "sun.min.fill" : "moon.fill")
                 .offset(x: -16)
                 .onTapGesture {
                     themes = themes == .dark ? .light : .dark
