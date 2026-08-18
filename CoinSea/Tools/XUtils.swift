@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AVKit
 import UserNotifications
 
 // 振动管理
@@ -17,38 +16,18 @@ class XHaptic {
     
     func handleNotifi(type: UINotificationFeedbackGenerator.FeedbackType) {
         let generator = UINotificationFeedbackGenerator()
-        generator.prepare() // 触发前准备，减少延迟
+        generator.prepare()
         generator.notificationOccurred(type)
     }
     
     func handleImpact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
         let generator = UIImpactFeedbackGenerator(style: style)
-        generator.prepare() // 触发前准备
+        generator.prepare()
         generator.impactOccurred()
     }
 }
 
-// 声音管理
-class XSound {
-    static let shared = XSound()
-    var player: AVAudioPlayer?
-    
-    private init() {}
-    
-    func handleSound(name: String, ext: String = "mp3") {
-        // 保证手机开静音模式时也能放声音
-        guard (try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)) != nil else { return }
-        guard (try? AVAudioSession.sharedInstance().setActive(true)) != nil else { return }
-        
-        guard let url = Bundle.main.url(forResource: name, withExtension: ext) else { return }
-        
-        player = try? AVAudioPlayer(contentsOf: url)
-        player?.prepareToPlay()
-        player?.play()
-    }
-}
-
-// 文件管理丨actor多线程，避免卡顿
+// 文件管理
 actor XFile {
     static let shared = XFile()
     
