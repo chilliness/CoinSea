@@ -11,12 +11,13 @@ import SwiftData
 struct PortView: View {
     @Environment(HomeViewModel.self) var vm
     @Environment(\.modelContext) var modelContext
-    @Query(sort: \PortfolioModel.id) var portfolioList: [PortfolioModel]
     
     @State var selectCoin: CoinModel?
     @State var query: String = ""
     @State var num: String = ""
     @State var showFlag: Bool = false
+    
+    @Query(sort: \PortfolioModel.id) var portfolioList: [PortfolioModel]
     
     var body: some View {
         NavigationStack {

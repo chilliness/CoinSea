@@ -11,11 +11,12 @@ import SwiftData
 struct HomeView: View {
     @Environment(HomeViewModel.self) var vm
     @AppStorage("themes") var themes: Themes = .dark
-    @Query(sort: \PortfolioModel.id) var portfolioList: [PortfolioModel]
     
     @State var showPort: Bool = false
     @State var showEdit: Bool = false
     @State var showInfo: Bool = false
+    
+    @Query(sort: \PortfolioModel.id) var portfolioList: [PortfolioModel]
     
     var body: some View {
         ZStack {
