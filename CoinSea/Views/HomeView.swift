@@ -177,7 +177,7 @@ extension HomeView {
             Image(systemName: "sparkles")
                 .font(.system(size: 60))
                 .foregroundStyle(Color.myActPrimary)
-                .symbolEffect(.bounce, options: .repeat(.continuous), isActive: vm.homeService.isLoading)
+                .symbolEffect(.bounce)
             
             Text("Getting everything ready...")
                 .font(.headline)
