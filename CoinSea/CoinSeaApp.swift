@@ -20,8 +20,8 @@ struct CoinSeaApp: App {
                 HomeView()
                     .toolbar(.hidden)
             }
-            .environment(vm)
             .preferredColorScheme(themes.colorScheme)
+            .environment(vm)
         }
         .modelContainer(for: [PortfolioModel.self])
     }
