@@ -161,16 +161,23 @@ struct StatModel: Identifiable {
     var percent: Double?
 }
 
-enum Themes: String, CaseIterable, Identifiable {
+enum Theme: String, CaseIterable, Identifiable {
     case light = "浅色模式"
     case dark = "深色模式"
     
     var id: String { self.rawValue }
+    
+    var isDark: Bool { self == .dark }
     
     var colorScheme: ColorScheme {
         switch self {
         case .light: return .light
         case .dark: return .dark
         }
+    }
+    
+    mutating func toggle(callback: (() -> Void)? = nil) {
+        self = isDark ? .light : .dark
+        callback?()
     }
 }

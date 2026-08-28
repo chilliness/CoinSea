@@ -10,7 +10,7 @@ import SwiftData
 
 struct HomeView: View {
     @Environment(HomeViewModel.self) var vm
-    @AppStorage("themes") var themes: Themes = .dark
+    @AppStorage("theme") var theme: Theme = .dark
     
     @State var showPort: Bool = false
     @State var showEdit: Bool = false
@@ -55,10 +55,10 @@ struct HomeView: View {
             }
         }
         .overlay(alignment: .bottomTrailing) {
-            CircleBtnView(iconName: themes == .dark ? "sun.min.fill" : "moon.fill")
+            CircleBtnView(iconName: theme.isDark ? "sun.min.fill" : "moon.fill")
                 .offset(x: -16)
                 .onTapGesture {
-                    themes = themes == .dark ? .light : .dark
+                    theme.toggle()
                 }
         }
         .onChange(of: portfolioList, initial: true) { _, newValue in

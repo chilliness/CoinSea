@@ -10,7 +10,7 @@ import SwiftData
 
 @main
 struct CoinSeaApp: App {
-    @AppStorage("themes") var themes: Themes = .dark
+    @AppStorage("theme") var theme: Theme = .dark
     
     @State var vm: HomeViewModel = HomeViewModel()
     
@@ -20,7 +20,7 @@ struct CoinSeaApp: App {
                 HomeView()
                     .toolbar(.hidden)
             }
-            .preferredColorScheme(themes.colorScheme)
+            .preferredColorScheme(theme.colorScheme)
             .environment(vm)
         }
         .modelContainer(for: [PortfolioModel.self])
