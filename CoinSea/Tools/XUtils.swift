@@ -16,13 +16,11 @@ class XHaptic {
     
     func handleNotifi(type: UINotificationFeedbackGenerator.FeedbackType) {
         let generator = UINotificationFeedbackGenerator()
-        generator.prepare()
         generator.notificationOccurred(type)
     }
     
     func handleImpact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
         let generator = UIImpactFeedbackGenerator(style: style)
-        generator.prepare()
         generator.impactOccurred()
     }
 }
