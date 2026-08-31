@@ -77,7 +77,7 @@ extension PortView {
     private func extCoinLogoList() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 10) {
-                ForEach(vm.handleFilter(with: query)) { item in
+                ForEach(Array(vm.handleFilter(with: query).enumerated()), id: \.element.id) { i, item in
                     CoinLogoView(coin: item)
                         .frame(width: 75)
                         .padding()

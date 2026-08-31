@@ -91,7 +91,7 @@ extension DetailView {
             .isPresented(title.starts(with: "Over"))
         
         LazyVGrid(columns: cols, alignment: .leading, spacing: 30) {
-            ForEach(data) { item in
+            ForEach(Array(data.enumerated()), id: \.element.id) { i, item in
                 StatView(stat: item)
             }
         }

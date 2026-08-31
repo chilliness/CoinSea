@@ -14,7 +14,7 @@ struct MarketView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(vm.statList) { item in
+            ForEach(Array(vm.statList.enumerated()), id: \.element.id) { i, item in
                 StatView(stat: item)
                     .containerRelativeFrame(.horizontal, count: 3, spacing: 0)
             }

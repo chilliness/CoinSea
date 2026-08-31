@@ -154,7 +154,7 @@ extension HomeView {
     @ViewBuilder
     private func extCoinList(data: [CoinModel]) -> some View {
         List {
-            ForEach(data) { item in
+            ForEach(Array(data.enumerated()), id: \.element.id) { i, item in
                 NavigationLink(value: item) {
                     CoinRowView(coin: item, isShowCol: showPort)
                 }
