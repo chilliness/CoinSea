@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoinLogoView: View {
-    @State var coin: CoinModel
+    @State var coin: CoinMod
     
     var body: some View {
         VStack {

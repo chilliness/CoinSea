@@ -13,7 +13,7 @@ struct DetailView: View {
     
     var cols: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
     
-    init(coin: CoinModel) {
+    init(coin: CoinMod) {
         _vm = State(wrappedValue: DetailViewModel(coin: coin))
     }
     
@@ -80,7 +80,7 @@ extension DetailView {
     }
     
     @ViewBuilder
-    private func extGrid(title: String, data: [StatModel]) -> some View {
+    private func extGrid(title: String, data: [StatMod]) -> some View {
         Text(title)
             .font(.title.bold())
             .foregroundStyle(Color.myActPrimary)

@@ -11,14 +11,14 @@ import SwiftUI
 @Observable
 class DetailViewModel {
     var detailService: DetailViewService
-    var overStats: [StatModel] = []
-    var addiStats: [StatModel] = []
-    var coin: CoinModel
+    var overStats: [StatMod] = []
+    var addiStats: [StatMod] = []
+    var coin: CoinMod
     var coinDesc: String?
     var webUrl: String?
     var redUrl: String?
     
-    init(coin: CoinModel) {
+    init(coin: CoinMod) {
         self.coin = coin
         self.detailService = DetailViewService(coin: coin)
         
@@ -34,44 +34,44 @@ class DetailViewModel {
         }
     }
     
-    private func handleMapData(coinDetailModel: CoinDetailModel?, coinModel: CoinModel) {
+    private func handleMapData(coinDetailModel: CoinDetailMod?, coinModel: CoinMod) {
         let defStr = "N/A"
         let overPrice = coinModel.currentPrice.asCurrencyWith6Decimals()
         let overPriceChange = coinModel.priceChangePercentage24H
-        let overPriceStat = StatModel(title: "Current Price", value: overPrice, percent: overPriceChange)
+        let overPriceStat = StatMod(title: "Current Price", value: overPrice, percent: overPriceChange)
         
         let overMarketCap = "$" + (coinModel.marketCap?.asWithAbbr() ?? "")
         let overMarketCapChange = coinModel.marketCapChangePercentage24H
-        let overMarketCapStat = StatModel(title: "Market Capitalization", value: overMarketCap, percent: overMarketCapChange)
+        let overMarketCapStat = StatMod(title: "Market Capitalization", value: overMarketCap, percent: overMarketCapChange)
         
         let overRank = "\(coinModel.rank)"
-        let overRankStat = StatModel(title: "Rank", value: overRank)
+        let overRankStat = StatMod(title: "Rank", value: overRank)
         
         let overVolume = "$" + (coinModel.totalVolume?.asWithAbbr() ?? "")
-        let overVolumeStat = StatModel(title: "Volume", value: overVolume)
+        let overVolumeStat = StatMod(title: "Volume", value: overVolume)
         
         overStats = [overPriceStat, overMarketCapStat, overRankStat, overVolumeStat]
         
         let addiHigh = coinModel.high24H?.asCurrencyWith6Decimals() ?? defStr
-        let addiHighStat = StatModel(title: "24h High", value: addiHigh)
+        let addiHighStat = StatMod(title: "24h High", value: addiHigh)
         
         let addiLow = coinModel.low24H?.asCurrencyWith6Decimals() ?? defStr
-        let addiLowStat = StatModel(title: "24h Low", value: addiLow)
+        let addiLowStat = StatMod(title: "24h Low", value: addiLow)
         
         let addiPrice = coinModel.priceChange24H?.asCurrencyWith2Decimals() ?? defStr
         let addiPriceChange = coinModel.priceChangePercentage24H
-        let addiPriceStat = StatModel(title: "24h Price Change", value: addiPrice, percent: addiPriceChange)
+        let addiPriceStat = StatMod(title: "24h Price Change", value: addiPrice, percent: addiPriceChange)
         
         let addiMarketCap = coinModel.marketCap?.asCurrencyWith2Decimals() ?? defStr
         let addiMarketCapChange = coinModel.marketCapChangePercentage24H
-        let addiMarketCapStat = StatModel(title: "24h Market Cap Change", value: addiMarketCap, percent: addiMarketCapChange)
+        let addiMarketCapStat = StatMod(title: "24h Market Cap Change", value: addiMarketCap, percent: addiMarketCapChange)
         
         if let detailModel = coinDetailModel {
             let addiBlockTime = "\(detailModel.blockTimeInMinutes ?? 0) min"
-            let addiBlockTimeStat = StatModel(title: "Block Time", value: addiBlockTime)
+            let addiBlockTimeStat = StatMod(title: "Block Time", value: addiBlockTime)
             
             let addiHashing = detailModel.hashingAlgorithm ?? defStr
-            let addiHashingStat = StatModel(title: "Hashing Algorithm", value: addiHashing)
+            let addiHashingStat = StatMod(title: "Hashing Algorithm", value: addiHashing)
             
             coinDesc = detailModel.description?.en?.handleRemoveHTML()
             webUrl = detailModel.links?.homepage?.first
@@ -81,12 +81,12 @@ class DetailViewModel {
         } else {
             let loadStr = "Loading..."
             addiStats = [
-                StatModel(title: "24h High", value: loadStr),
-                StatModel(title: "24h Low", value: loadStr),
-                StatModel(title: "24h Price Change", value: loadStr),
-                StatModel(title: "24h Market Cap Change", value: loadStr),
-                StatModel(title: "Block Time", value: loadStr),
-                StatModel(title: "Hashing Algorithm", value: loadStr)
+                StatMod(title: "24h High", value: loadStr),
+                StatMod(title: "24h Low", value: loadStr),
+                StatMod(title: "24h Price Change", value: loadStr),
+                StatMod(title: "24h Market Cap Change", value: loadStr),
+                StatMod(title: "Block Time", value: loadStr),
+                StatMod(title: "Hashing Algorithm", value: loadStr)
             ]
         }
     }
@@ -95,16 +95,16 @@ class DetailViewModel {
 @MainActor
 @Observable
 class DetailViewService {
-    var coinDetail: CoinDetailModel?
+    var coinDetail: CoinDetailMod?
     
-    init(coin: CoinModel) {}
+    init(coin: CoinMod) {}
     
-    func handleDll(coin: CoinModel) async {
+    func handleDll(coin: CoinMod) async {
         guard let url = URL(string:  "https://api.coingecko.com/api/v3/coins/\(coin.id)?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false") else { return }
         
         guard let (data, res) = try? await URLSession.shared.data(from: url), res.isOK else { return }
         
-        guard let temp = try? JSONDecoder().decode(CoinDetailModel.self, from: data) else { return }
+        guard let temp = try? JSONDecoder().decode(CoinDetailMod.self, from: data) else { return }
         coinDetail = temp
     }
 }

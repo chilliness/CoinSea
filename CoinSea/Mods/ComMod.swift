@@ -11,7 +11,7 @@ import SwiftUI
 
 // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=24h
 
-struct CoinModel: Identifiable, Codable, Hashable {
+struct CoinMod: Identifiable, Codable, Hashable {
     let id: String
     var symbol, name, image: String
     var currentPrice: Double
@@ -56,8 +56,8 @@ struct CoinModel: Identifiable, Codable, Hashable {
         case currentHoldings = "current_holdings"
     }
     
-    func updateHoldings(amount: Double) -> CoinModel {
-        return CoinModel(id: id, symbol: symbol, name: name, image: image, currentPrice: currentPrice, marketCap: marketCap, marketCapRank: marketCapRank, fullyDilutedValuation: fullyDilutedValuation, totalVolume: totalVolume, high24H: high24H, low24H: low24H, priceChange24H: priceChange24H, priceChangePercentage24H: priceChangePercentage24H, marketCapChange24H: marketCapChange24H, marketCapChangePercentage24H: marketCapChangePercentage24H, circulatingSupply: circulatingSupply, totalSupply: totalSupply, maxSupply: maxSupply, ath: ath, athChangePercentage: athChangePercentage, athDate: athDate, atl: atl, atlChangePercentage: atlChangePercentage, atlDate: atlDate, lastUpdated: lastUpdated, sparklineIn7D: sparklineIn7D, priceChangePercentage24HInCurrency: priceChangePercentage24HInCurrency, currentHoldings: amount)
+    func updateHoldings(amount: Double) -> CoinMod {
+        return CoinMod(id: id, symbol: symbol, name: name, image: image, currentPrice: currentPrice, marketCap: marketCap, marketCapRank: marketCapRank, fullyDilutedValuation: fullyDilutedValuation, totalVolume: totalVolume, high24H: high24H, low24H: low24H, priceChange24H: priceChange24H, priceChangePercentage24H: priceChangePercentage24H, marketCapChange24H: marketCapChange24H, marketCapChangePercentage24H: marketCapChangePercentage24H, circulatingSupply: circulatingSupply, totalSupply: totalSupply, maxSupply: maxSupply, ath: ath, athChangePercentage: athChangePercentage, athDate: athDate, atl: atl, atlChangePercentage: atlChangePercentage, atlDate: atlDate, lastUpdated: lastUpdated, sparklineIn7D: sparklineIn7D, priceChangePercentage24HInCurrency: priceChangePercentage24HInCurrency, currentHoldings: amount)
     }
     
     var currentHoldingsValue: Double {
@@ -76,10 +76,10 @@ struct SparklineIn7D: Codable, Hashable {
 // https://api.coingecko.com/api/v3/global
 
 struct GlobalData: Codable {
-    var data: MarketModel?
+    var data: MarketMod?
 }
 
-struct MarketModel: Codable {
+struct MarketMod: Codable {
     var totalMarketCap, totalVolume, marketCapPercentage: [String: Double]
     var marketCapChangePercentage24HUsd: Double
     
@@ -111,7 +111,7 @@ struct MarketModel: Codable {
 
 // https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
 
-struct CoinDetailModel: Codable {
+struct CoinDetailMod: Codable {
     let id, symbol, name: String?
     let blockTimeInMinutes: Int?
     let hashingAlgorithm: String?
@@ -144,7 +144,7 @@ struct Description: Codable {
 }
 
 @Model
-class PortfolioModel {
+class PortfolioMod {
     @Attribute(.unique) var id: String
     var amount: Double
     
@@ -154,7 +154,7 @@ class PortfolioModel {
     }
 }
 
-struct StatModel: Identifiable {
+struct StatMod: Identifiable {
     let id = UUID()
     var title: String
     var value: String

@@ -17,7 +17,7 @@ struct ChartView: View {
     var eDate: Date
     var sDate: Date
     
-    init(coin: CoinModel) {
+    init(coin: CoinMod) {
         self.data = coin.sparklineIn7D?.price ?? []
         self.maxY = data.max() ?? 0
         self.minY = data.min() ?? 0

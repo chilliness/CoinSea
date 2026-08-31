@@ -10,12 +10,12 @@ import SwiftUI
 @MainActor
 @Observable
 class CoinImgViewModel {
-    var coin: CoinModel
+    var coin: CoinMod
     var dataService = CoinImageViewService()
     var image: UIImage?
     var isLoading: Bool = false
     
-    init(coin: CoinModel) {
+    init(coin: CoinMod) {
         self.coin = coin
     }
     
@@ -50,7 +50,7 @@ struct CoinImageViewService {
     }
     
     // 下载图片并自动保存到缓存
-    func handleLoadAndSave(coin: CoinModel) async -> UIImage? {
+    func handleLoadAndSave(coin: CoinMod) async -> UIImage? {
         guard let url = URL(string: coin.image) else { return nil }
         
         // 发起异步网络请求

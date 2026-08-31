@@ -14,11 +14,11 @@ class XPreview {
     
     var homeVm = HomeViewModel()
     
-    var stat1 = StatModel(title: "Market Cap", value: "$12.58n", percent: 25.34)
-    var stat2 = StatModel(title: "Total Volume", value: "$1.25Tr")
-    var stat3 = StatModel(title: "Portfolio Value", value: "$50.4k", percent: -12.34)
+    var stat1 = StatMod(title: "Market Cap", value: "$12.58n", percent: 25.34)
+    var stat2 = StatMod(title: "Total Volume", value: "$1.25Tr")
+    var stat3 = StatMod(title: "Portfolio Value", value: "$50.4k", percent: -12.34)
     
-    var coin = CoinModel(
+    var coin = CoinMod(
         id: "bitcoin",
         symbol: "btc",
         name: "Bitcoin",

@@ -11,14 +11,14 @@ import SwiftUI
 @Observable
 class HomeViewModel {
     var marketService = MarketViewService()
-    var filterCoins: [CoinModel] = []
+    var filterCoins: [CoinMod] = []
     var searchTask: Task<Void, Never>?
     var homeService = HomeViewService()
     var sortOption: SortOption = .rank
     var keyStr: String = "" {
         didSet { handleDebounce() }
     }
-    var dataCoins: [CoinModel] {
+    var dataCoins: [CoinMod] {
         let temp = homeService.allCoins
         
         switch sortOption {
@@ -32,8 +32,8 @@ class HomeViewModel {
             return temp.sorted { $0.currentPrice < $1.currentPrice }
         }
     }
-    var portfolioModel: [PortfolioModel] = []
-    var portfolioCoins: [CoinModel] {
+    var portfolioModel: [PortfolioMod] = []
+    var portfolioCoins: [CoinMod] {
         let temp = dataCoins.compactMap { coin in
             if let portfolio = portfolioModel.first(where: { $0.id == coin.id }) {
                 return coin.updateHoldings(amount: portfolio.amount)
@@ -42,10 +42,10 @@ class HomeViewModel {
         }
         return temp.filter { keyStr.isEmpty ? true : $0.symbol.localizedStandardContains(keyStr) }
     }
-    var allCoins: [CoinModel] {
+    var allCoins: [CoinMod] {
         keyStr.isEmpty ? dataCoins : filterCoins
     }
-    var statList: [StatModel] {
+    var statList: [StatMod] {
         guard let marketData = marketService.marketData else { return [] }
         
         let portValue = portfolioCoins.map({ $0.currentHoldingsValue }).reduce(0, +)
@@ -54,10 +54,10 @@ class HomeViewModel {
         let percent = prevValue <= 0 ? 0 : ((portValue - prevValue) / prevValue) * 100
         
         return [
-            StatModel(title: "Market Cap", value: marketData.marketCap, percent: marketData.marketCapChangePercentage24HUsd),
-            StatModel(title: "24h Volume", value: marketData.volume),
-            StatModel(title: "BTC Dominance", value: marketData.btcDomin),
-            StatModel(title: "Portfolio Value", value: portValue.asCurrencyWith2Decimals(), percent: percent)
+            StatMod(title: "Market Cap", value: marketData.marketCap, percent: marketData.marketCapChangePercentage24HUsd),
+            StatMod(title: "24h Volume", value: marketData.volume),
+            StatMod(title: "BTC Dominance", value: marketData.btcDomin),
+            StatMod(title: "Portfolio Value", value: portValue.asCurrencyWith2Decimals(), percent: percent)
         ]
     }
     
@@ -87,7 +87,7 @@ class HomeViewModel {
         }
     }
     
-    func handleFilter(with query: String) -> [CoinModel] {
+    func handleFilter(with query: String) -> [CoinMod] {
         let listCoins = homeService.allCoins
         
         guard !query.isEmpty else {
@@ -107,7 +107,7 @@ class HomeViewModel {
 @MainActor
 @Observable
 class HomeViewService {
-    var allCoins: [CoinModel] = []
+    var allCoins: [CoinMod] = []
     var isLoading: Bool = false
     
     init() {
@@ -124,7 +124,7 @@ class HomeViewService {
         
         guard let (data, res) = try? await URLSession.shared.data(from: url), res.isOK else { return }
         
-        guard let temp = try? JSONDecoder().decode([CoinModel].self, from: data) else { return }
+        guard let temp = try? JSONDecoder().decode([CoinMod].self, from: data) else { return }
         allCoins = temp
     }
 }

@@ -16,7 +16,7 @@ struct HomeView: View {
     @State var showEdit: Bool = false
     @State var showInfo: Bool = false
     
-    @Query(sort: \PortfolioModel.id) var portfolioList: [PortfolioModel]
+    @Query(sort: \PortfolioMod.id) var portfolioList: [PortfolioMod]
     
     var body: some View {
         ZStack {
@@ -152,7 +152,7 @@ extension HomeView {
     }
     
     @ViewBuilder
-    private func extCoinList(data: [CoinModel]) -> some View {
+    private func extCoinList(data: [CoinMod]) -> some View {
         List {
             ForEach(Array(data.enumerated()), id: \.element.id) { i, item in
                 NavigationLink(value: item) {
@@ -163,7 +163,7 @@ extension HomeView {
             }
         }
         .listStyle(.plain)
-        .navigationDestination(for: CoinModel.self) { item in
+        .navigationDestination(for: CoinMod.self) { item in
             DetailView(coin: item)
         }
         .refreshable {

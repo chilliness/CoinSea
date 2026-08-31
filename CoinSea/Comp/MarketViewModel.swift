@@ -13,7 +13,7 @@ class MarketViewModel {}
 @MainActor
 @Observable
 class MarketViewService {
-    var marketData: MarketModel?
+    var marketData: MarketMod?
     var isLoading: Bool = false
     
     init() {

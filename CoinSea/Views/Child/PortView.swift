@@ -12,12 +12,12 @@ struct PortView: View {
     @Environment(HomeViewModel.self) var vm
     @Environment(\.modelContext) var modelContext
     
-    @State var selectCoin: CoinModel?
+    @State var selectCoin: CoinMod?
     @State var query: String = ""
     @State var num: String = ""
     @State var showFlag: Bool = false
     
-    @Query(sort: \PortfolioModel.id) var portfolioList: [PortfolioModel]
+    @Query(sort: \PortfolioMod.id) var portfolioList: [PortfolioMod]
     
     var body: some View {
         NavigationStack {
@@ -155,7 +155,7 @@ extension PortView {
                 modelContext.delete(target)
             }
         } else {
-            modelContext.insert(PortfolioModel(id: coin.id, amount: amount))
+            modelContext.insert(PortfolioMod(id: coin.id, amount: amount))
         }
         
         withAnimation { showFlag = true }

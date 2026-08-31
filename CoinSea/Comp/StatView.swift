@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StatView: View {
-    var stat: StatModel
+    var stat: StatMod
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {

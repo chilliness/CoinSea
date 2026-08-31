@@ -23,6 +23,6 @@ struct CoinSeaApp: App {
             .preferredColorScheme(theme.colorScheme)
             .environment(vm)
         }
-        .modelContainer(for: [PortfolioModel.self])
+        .modelContainer(for: [PortfolioMod.self])
     }
 }
